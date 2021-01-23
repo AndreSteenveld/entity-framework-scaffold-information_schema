@@ -61,7 +61,23 @@ $ sqlcmd -U sa -P 'P@55word' -H localhost -e -Q 'create database Data;'
 $ dotnet ef database update --context InformationSchema.SqlServer.EntertainmentContext
 ```
 
+Scaffolding the `information_schema`s
 
+```
+#
+# Scaffold postgres
+#
+$ dotnet ef dbcontext scaffold  \
+    --schema "information_schema"   \
+    --context-dir ./Postgres
+    --context InformationContext
+
+```
+
+Turns our that it is not possible to scaffold `information_schema`, even when explicitly asked to do so.
+
+* The blacklist in the PG scaffold tooling - (link)[https://github.com/npgsql/efcore.pg/blob/1d92d7f52031fd843bb1e0e3714d312740045f99/src/EFCore.PG/Scaffolding/Internal/NpgsqlDatabaseModelFactory.cs#L108]
+* Although I can't find the source and don't feel like decompiling the assembly I am quite certain this would be happening as well within the SQL Server (SqlServerDatabaseModelFactory)[https://github.com/dotnet/efcore/blob/e64624d549bd0db381801f1b30a38916fd766c3e/src/EFCore.SqlServer/Scaffolding/Internal/SqlServerDatabaseModelFactory.cs#L1]
 
 # Notes
 

@@ -6,7 +6,7 @@ namespace InformationSchema.Postgres
     {
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseNpgsql("Server=localhost;Port=5432;Database=entertainment;User Id=postgres;Password=P@55word;");
+            => options.UseNpgsql("Server=localhost;Port=5432;Database=entertainment;Username=postgres;Password=P@55word;");
 
         public DbSet<Production> Productions { get; set; }
         public DbSet<Movie> Movies { get; set; }
