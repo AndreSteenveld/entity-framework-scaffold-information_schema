@@ -1,0 +1,28 @@
+version: "3"
+
+volumes:
+  sql-server-data: { }
+  postgres-data: { }
+
+services:
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sql-server
+    environment:
+      ACCEPT_EULA : "Y"
+      SA_PASSWORD : "P@55word"
+    ports:
+      - 1433:1433
+    volumes:
+      - sql-server-data:/var/opt/mssql
+
+  postgres:
+    image: postgres:12
+    container_name: postgres
+    environment:
+      POSTGRES_PASSWORD : "P@55word"
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
